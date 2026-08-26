@@ -1,9 +1,9 @@
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { getFontFamily } from './assets/fonts/helper';
+import Title from './components/Title';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,7 +26,7 @@ function AppContent() {
           paddingBottom: insets.bottom,
         },
       ]}>
-      <Text style={styles.text}>Welcome to the Social Media App!</Text>
+      <Title>Let's Explore</Title>
     </View>
   );
 }
@@ -34,10 +34,6 @@ function AppContent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  text: {
-    fontFamily: getFontFamily('Inter', '400', false),
-    fontSize: 50
   }
 });
 
