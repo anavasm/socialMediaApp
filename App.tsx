@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   StatusBar,
@@ -11,12 +12,20 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Title from './components/Title';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { getFontFamily } from './assets/fonts/helper';
+import Title from './components/Title';
 import UserStory from './components/UserStory';
+import { getFontFamily } from './assets/fonts/helper';
 import { USER_STORIES } from './data/userStories';
+import type { UserStoryType } from './data/userStories';
+
+const PAGE_SIZE = 4;
+
+const paginate = (data: UserStoryType[], page: number, pageSize: number) => {
+  const startIndex = (page - 1) * pageSize;
+  return data.slice(startIndex, startIndex + pageSize);
+};
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,6 +40,37 @@ function App() {
 
 function AppContent() {
   const insets = useSafeAreaInsets();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userStoriesRenderData, setUserStoriesRenderData] = useState<
+    UserStoryType[]
+  >([]);
+  // Synchronous guard flag to prevent multiple triggers on scroll without triggering re-renders
+  const isFetchingRef = useRef(false);
+
+  useEffect(() => {
+    const initialData = paginate(USER_STORIES, 1, PAGE_SIZE);
+    setUserStoriesRenderData(initialData);
+  }, []);
+
+  const handleFetchMoreStories = () => {
+    if (
+      isFetchingRef.current ||
+      userStoriesRenderData.length >= USER_STORIES.length
+    ) {
+      return;
+    }
+
+    const nextPage = currentPage + 1;
+    const contentToAppend = paginate(USER_STORIES, nextPage, PAGE_SIZE);
+
+    if (contentToAppend.length > 0) {
+      isFetchingRef.current = true;
+      setUserStoriesRenderData(prevData => [...prevData, ...contentToAppend]);
+      setCurrentPage(nextPage);
+      isFetchingRef.current = false;
+    }
+  };
+
   return (
     <View
       style={[
@@ -52,11 +92,13 @@ function AppContent() {
       </View>
       <View style={styles.userStoriesContainer}>
         <FlatList
+          horizontal
           showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          data={USER_STORIES}
+          data={userStoriesRenderData}
           renderItem={({ item }) => <UserStory {...item} />}
           keyExtractor={item => item.id.toString()}
+          onEndReachedThreshold={0.5}
+          onEndReached={handleFetchMoreStories}
           contentContainerStyle={styles.storiesListContent}
         />
       </View>
@@ -98,7 +140,7 @@ const styles = StyleSheet.create({
     fontFamily: getFontFamily('Inter', '600'),
   },
   userStoriesContainer: {
-    marginTop: 20
+    marginTop: 20,
   },
   storiesListContent: {
     paddingHorizontal: 28,
