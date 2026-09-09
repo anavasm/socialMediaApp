@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Image, Text } from 'react-native';
+import ProfileTabsNavigator from '../../navigation/ProfileTabsNavigator';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { DrawerScreenProps } from '@react-navigation/drawer';
 import { getFontFamily } from '../../assets/fonts/helper';
@@ -46,6 +47,9 @@ const ProfileScreen: React.FC<Props> = () => {
             <Text style={styles.statAmount}>100</Text>
             <Text style={styles.statLabel}>Posts</Text>
           </View>
+        </View>
+        <View style={styles.tabContainer}>
+          <ProfileTabsNavigator />
         </View>
       </ScrollView>
     </View>
@@ -108,6 +112,10 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#E9EFF1',
   },
+  tabContainer: {
+    flex: 1,
+    minHeight: 400
+  }
 });
 
 export default ProfileScreen;
