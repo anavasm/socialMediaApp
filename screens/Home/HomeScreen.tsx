@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import type { RootStackParamList } from '../../navigation/MainNavigation';
+import type { StackScreenProps } from '@react-navigation/stack';
 import {
   FlatList,
   StyleSheet,
@@ -25,7 +27,9 @@ const paginate = <T,>(data: T[], page: number, pageSize: number): T[] => {
   return data.slice(startIndex, startIndex + pageSize);
 };
 
-export const HomeScreen = () => {
+type Props = StackScreenProps<RootStackParamList>;
+
+export const HomeScreen : React.FC<Props> = () => {
   const insets = useSafeAreaInsets();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +105,7 @@ export const HomeScreen = () => {
           <>
             <View style={styles.header}>
               <Title>Let's Explore</Title>
-              <TouchableOpacity style={styles.iconContainer}>
+              <TouchableOpacity style={styles.iconContainer} >
                 <FontAwesomeIcon
                   icon={faEnvelope}
                   size={20}

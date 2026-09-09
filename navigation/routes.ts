@@ -1,3 +1,5 @@
-export const Routes = {
-    Home: 'Home'
+export enum Routes {
+    Drawer = 'Drawer',
+    Home = 'Home',
+    Profile = 'Profile'
 }
