@@ -10,7 +10,8 @@ type Props = {
 const ProfileTabTitle: React.FC<Props> = ({ title, isFocused }) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, isFocused && styles.titleFocused]}>{title}</Text>
+      <Text style={[styles.title, isFocused && styles.titleFocused]} accessibilityRole="tab"
+        accessibilityState={{ selected: isFocused }}>{title}</Text>
     </View>
   );
 };

@@ -5,10 +5,10 @@ import UserProfileImage from './UserProfileImage';
 import { UserStoryType } from '../data/userStories';
 
 const UserStory: React.FC<UserStoryType> = ({ firstName, profileImage }) => {
-    return (
+return (
         <View style={styles.container}>
-            <UserProfileImage profileImage={profileImage} imageDimensions={65}/>
-            <Text style={styles.firstName}>{firstName}</Text>
+            <UserProfileImage profileImage={profileImage} imageDimensions={65} accessibilityLabel={`Profile picture of ${firstName}`}/>
+            <Text style={styles.firstName} accessibilityRole="text" accessibilityLabel={`User story for ${firstName}`}>{firstName}</Text>
         </View>
     );
 };

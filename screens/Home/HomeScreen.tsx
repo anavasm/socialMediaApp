@@ -90,8 +90,10 @@ export const HomeScreen : React.FC<Props> = () => {
     }
   };
 
-  return (
+return (
     <View
+      accessible={true}
+      accessibilityLabel="Home screen"
       style={[
         styles.container,
         {
@@ -101,11 +103,18 @@ export const HomeScreen : React.FC<Props> = () => {
       ]}
     >
       <FlatList
+        accessible={true}
+        accessibilityLabel="Posts feed"
         ListHeaderComponent={
           <>
             <View style={styles.header}>
               <Title>Let's Explore</Title>
-              <TouchableOpacity style={styles.iconContainer} >
+              <TouchableOpacity
+                style={styles.iconContainer}
+                accessible={true}
+                accessibilityLabel="Messages with 2 unread notifications"
+                accessibilityRole="button"
+              >
                 <FontAwesomeIcon
                   icon={faEnvelope}
                   size={20}

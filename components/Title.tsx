@@ -7,7 +7,7 @@ interface TitleProps extends TextProps {
 }
 
 const Title: React.FC<TitleProps> = ({ children }) => {
-  return <Text style={styles.title}>{children}</Text>;
+  return <Text style={styles.title} accessibilityRole="header" accessibilityLabel={typeof children === 'string' ? children : 'Title'}>{children}</Text>;
 }
 
 const styles = StyleSheet.create({

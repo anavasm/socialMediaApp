@@ -12,6 +12,8 @@ const ProfileTabContent: React.FC = () => {
         {[...Array(8)].map((_, index) => (
           <Image
             key={index}
+            accessibilityRole="image"
+            accessibilityLabel={`Grid photo ${index + 1}`}
             source={require('../assets/images/default_post.png')}
             style={styles.image}
             resizeMode="cover"

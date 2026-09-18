@@ -4,16 +4,19 @@ import { Image, ImageSourcePropType, StyleSheet, View } from 'react-native';
 interface UserProfileImageProps {
   profileImage: ImageSourcePropType;
   imageDimensions?: number;
+  accessibilityLabel?: string;
 }
 
 const UserProfileImage: React.FC<UserProfileImageProps> = ({
   profileImage,
   imageDimensions = 65,
+  accessibilityLabel = 'User profile image',
 }) => {
   const containerSize = imageDimensions + 10;
 
-  return (
+return (
     <View
+      testID="user-profile-image-container"
       style={[
         styles.container,
         {
@@ -24,6 +27,9 @@ const UserProfileImage: React.FC<UserProfileImageProps> = ({
       ]}
     >
       <Image
+        testID="user-profile-image"
+        accessibilityRole="image"
+        accessibilityLabel={accessibilityLabel}
         source={profileImage}
         style={{
           width: imageDimensions,

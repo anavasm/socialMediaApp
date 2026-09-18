@@ -18,32 +18,32 @@ const UserPost: React.FC<UserPostType> = ({
   profileImage,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} accessible={true} accessibilityLabel={`Post by ${firstName} ${lastName}`}>
       <View style={styles.user}>
         <View style={styles.userContainer}>
           <UserProfileImage profileImage={profileImage} imageDimensions={48} />
           <View style={styles.userTextContainer}>
-            <Text style={styles.userName}>
+            <Text style={styles.userName} accessibilityRole="text">
               {firstName} {lastName}
             </Text>
-            <Text style={styles.location}>{location}</Text>
+            <Text style={styles.location} accessibilityRole="text">{location}</Text>
           </View>
         </View>
-        <FontAwesomeIcon icon={faEllipsisH} size={24} color={'#79869F'} />
+        <FontAwesomeIcon icon={faEllipsisH} size={24} color={'#79869F'} testID="post-menu-icon" />
       </View>
-        <View style={styles.postImage}>
-            <Image source={image} />
-        </View>
-      <View style={styles.postStatsContainer}>
-        <View style={styles.statItem}>
+      <View style={styles.postImage}>
+        <Image source={image} accessible={true} accessibilityLabel={`Post image by ${firstName} ${lastName}`} />
+      </View>
+      <View style={styles.postStatsContainer} accessibilityLabel="Post statistics">
+        <View style={styles.statItem} accessible={true} accessibilityLabel={`${likes} likes`}>
           <FontAwesomeIcon icon={faHeart} color={'#79869F'} />
           <Text style={styles.statText}>{likes}</Text>
         </View>
-        <View style={styles.statItemWithMargin}>
+        <View style={styles.statItemWithMargin} accessible={true} accessibilityLabel={`${comments} comments`}>
           <FontAwesomeIcon icon={faMessage} color={'#79869F'} />
           <Text style={styles.statText}>{comments}</Text>
         </View>
-        <View style={styles.statItemWithMargin}>
+        <View style={styles.statItemWithMargin} accessible={true} accessibilityLabel={`${bookmarks} bookmarks`}>
           <FontAwesomeIcon icon={faBookmark} color={'#79869F'} />
           <Text style={styles.statText}>{bookmarks}</Text>
         </View>
